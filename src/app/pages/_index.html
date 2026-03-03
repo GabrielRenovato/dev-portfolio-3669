@@ -1,0 +1,120 @@
+<app-navbar></app-navbar>
+
+<main class="min-h-screen bg-slate-50 text-slate-900">
+  <!-- Hero Section -->
+  <section class="relative overflow-hidden bg-slate-900 text-white pb-20 pt-32">
+    <div class="container mx-auto px-6 text-center relative z-10">
+      <h1 class="text-5xl md:text-7xl font-bold mb-6 tracking-tight">
+        {{ heroTitle }}
+      </h1>
+      <p class="text-xl md:text-2xl text-slate-300 mb-10 max-w-2xl mx-auto">
+        {{ heroSubtitle }}
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+        <p-button 
+          label="View Projects" 
+          (onClick)="navigateToProjects()" 
+          [rounded]="true" 
+          size="large"
+          severity="contrast"
+          aria-label="View my projects">
+        </p-button>
+        <p-button 
+          label="Contact Me" 
+          (onClick)="navigateToContact()" 
+          [rounded]="true" 
+          size="large" 
+          outlined
+          severity="contrast"
+          aria-label="Contact me">
+        </p-button>
+      </div>
+    </div>
+    <!-- Decorative background elements -->
+    <div class="absolute top-0 left-0 w-full h-full overflow-hidden z-0 opacity-20 pointer-events-none">
+      <div class="absolute -top-24 -left-24 w-96 h-96 bg-primary-500 rounded-full blur-3xl"></div>
+      <div class="absolute top-1/2 right-0 w-80 h-80 bg-blue-500 rounded-full blur-3xl"></div>
+    </div>
+  </section>
+
+  <!-- Skills Section -->
+  <section class="py-20 bg-white">
+    <div class="container mx-auto px-6">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl font-bold mb-4">Tech Stack</h2>
+        <div class="w-20 h-1 bg-primary-500 mx-auto rounded"></div>
+      </div>
+      
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
+        @for (skill of skills; track skill.name) &#123;
+          <div class="p-6 bg-slate-50 rounded-xl border border-slate-200 hover:shadow-lg transition-shadow duration-300 text-center group">
+            <i class="{{ skill.icon }} text-4xl text-primary-600 mb-4 group-hover:scale-110 transition-transform duration-300"></i>
+            <h3 class="font-semibold text-lg">{{ skill.name }}</h3>
+            <div class="w-full bg-slate-200 rounded-full h-2.5 mt-3 overflow-hidden">
+              <div class="bg-primary-600 h-2.5 rounded-full" [style.width.%]="skill.level"></div>
+            </div>
+          </div>
+        &#125;
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured Projects Section -->
+  <section class="py-20 bg-slate-50">
+    <div class="container mx-auto px-6">
+      <div class="flex justify-between items-end mb-12">
+        <div>
+          <h2 class="text-3xl font-bold mb-2">Featured Projects</h2>
+          <p class="text-slate-600">A selection of my recent work.</p>
+        </div>
+        <a [routerLink]="['/projects']" class="hidden md:inline-flex items-center text-primary-600 font-semibold hover:text-primary-700 transition-colors">
+          View All Projects <i class="pi pi-arrow-right ml-2"></i>
+        </a>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        @for (project of featuredProjects; track project.slug) &#123;
+          <article class="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-slate-100 flex flex-col">
+            <div class="h-48 overflow-hidden relative">
+               <img [ngSrc]="project.image" [alt]="project.title" width="600" height="400" class="w-full h-full object-cover transition-transform duration-500 hover:scale-105" />
+            </div>
+            <div class="p-6 flex-1 flex flex-col">
+              <div class="flex gap-2 mb-3 flex-wrap">
+                @for (tag of project.tags; track tag) &#123;
+                  <span class="px-3 py-1 bg-slate-100 text-slate-600 text-xs font-medium rounded-full">{{ tag }}</span>
+                &#125;
+              </div>
+              <h3 class="text-xl font-bold mb-2">{{ project.title }}</h3>
+              <p class="text-slate-600 mb-6 flex-1">{{ project.description }}</p>
+              <a [routerLink]="['/projects', project.slug]" class="inline-flex items-center justify-center w-full py-2.5 px-4 bg-slate-900 text-white rounded-lg hover:bg-slate-800 transition-colors font-medium">
+                View Details <i class="pi pi-arrow-right ml-2"></i>
+              </a>
+            </div>
+          </article>
+        &#125;
+      </div>
+      
+      <div class="mt-8 text-center md:hidden">
+        <a [routerLink]="['/projects']" class="inline-flex items-center text-primary-600 font-semibold hover:text-primary-700">
+          View All Projects <i class="pi pi-arrow-right ml-2"></i>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="py-20 bg-slate-900 text-white text-center">
+    <div class="container mx-auto px-6">
+      <h2 class="text-3xl md:text-4xl font-bold mb-6">Ready to start a project?</h2>
+      <p class="text-slate-300 mb-8 max-w-xl mx-auto">Let's work together to build something amazing. Feel free to reach out for collaborations or just a friendly hello.</p>
+      <p-button 
+        label="Get In Touch" 
+        (onClick)="navigateToContact()" 
+        [rounded]="true" 
+        size="large"
+        severity="secondary"
+        aria-label="Get in touch">
+      </p-button>
+    </div>
+  </section>
+</main>
